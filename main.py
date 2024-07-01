@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 app = Flask(__name__)
 
 # Replace with your LINE Notify access token
-LINE_NOTIFY_ACCESS_TOKEN = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+LINE_NOTIFY_ACCESS_TOKEN = 'GBUXdDrBPOmT8vELYFXZUSmLnDI3gG4mLeJqUXIQh1o'
 
 @app.route('/')
 def index():
