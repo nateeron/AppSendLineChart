@@ -67,3 +67,8 @@ if __name__ == '__main__':
     app.run()
 
 
+# heroku buildpacks:add --index 1 heroku/google-chrome -a flaskapp-sendline-chart
+# heroku buildpacks:add --index 1 heroku/chromedriver -a flaskapp-sendline-chart
+# git add .
+# git commit -m "Add buildpacks for Chrome and Chromedriver"
+# git push heroku main
