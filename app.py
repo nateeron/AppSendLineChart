@@ -41,7 +41,7 @@ def capture_tradingview_chart():
     driver.set_window_size(1200, 800)
 
     try:
-        driver.get('http://127.0.0.1:5000/')  # Replace with your Flask app URL
+        driver.get('https://flaskapp-sendline-chart-fb4a1cc719f8.herokuapp.com/')  # Replace with your Flask app URL
         time.sleep(10)  # Wait for page to load
 
         chart_image_path = 'static/tradingview_chart.png'
@@ -75,5 +75,9 @@ if __name__ == '__main__':
 # ----------------------------------------------
 # heroku buildpacks:add https://github.com/heroku/heroku-buildpack-chrome-for-testing -a flaskapp-sendline-chart
 # git add .
-# git commit -m "Add buildpacks for Chrome and Chromedriver"
+# git commit -m "Add buildpacks for Chrome and Chromedriver Chang 2"
 # git push heroku main
+
+# heroku logs --tail -a flaskapp-sendline-chart
+# https://flaskapp-sendline-chart-fb4a1cc719f8.herokuapp.com/
+# https://flaskapp-sendline-chart-fb4a1cc719f8.herokuapp.com/send_to_line
