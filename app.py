@@ -8,20 +8,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 app = Flask(__name__)
 
-# BINANCE:BTCUSDT
-# dark
-# tf": "15","60" "240 "D" ,W
-# http://127.0.0.1:5000/?sb=BINANCE:BTCUSDT&tf=15
-
 @app.route('/')
 def index():
     sb = request.args.get('sb', 'BINANCE:BTCUSDT')
     md = request.args.get('md', 'dark')
     tf = request.args.get('tf', '60')
     TK = request.args.get('tk', '')
-
-    # Print fetched data to console (optional for debugging)
-    print(f"sb: {sb}, md: {md}, pd: {tf}")
 
     return render_template('index.html', sb=sb, md=md, tf=tf)
 
@@ -48,21 +40,6 @@ def sendLine():
     
 
 
-
-@app.route('/send_to_line', methods=['POST'])
-def send_to_line():
-    # Capture TradingView chart
-    chart_image_path = capture_tradingview_chart()
-
-    if chart_image_path:
-        # Send chart image to LINE Notify
-        message = f"TradingView Chart for NASDAQ:AAPL"
-        send_line_notify(message, chart_image_path)
-        return 'Chart sent to LINE Notify!'
-    else:
-        return 'Failed to capture TradingView chart. Check logs for details.'
-
-
 def capture_tradingview_chart(sb,md,tf):
     options = Options()
     options.add_argument('--headless')
@@ -70,13 +47,16 @@ def capture_tradingview_chart(sb,md,tf):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
+    # Browser Chrome
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.set_window_size(1200, 800)
+    
     try:
         url ='https://flaskapp-sendline-chart-fb4a1cc719f8.herokuapp.com/?sb='+sb+'&md='+md+'&tf='+tf
+        # for TEST
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
-        driver.get(url)  # Replace with your Flask app URL
+        driver.get(url) 
         time.sleep(4)  # Wait for page to load
 
         chart_image_path = 'static/tradingview_chart.png'
