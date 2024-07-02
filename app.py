@@ -8,8 +8,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 app = Flask(__name__)
 
-# Replace with your LINE Notify access token
-LINE_NOTIFY_ACCESS_TOKEN = 'xxxxxxxxxxxxxxxxx'
 # BINANCE:BTCUSDT
 # dark
 # tf": "15","60" "240 "D" ,W
@@ -35,7 +33,6 @@ def sendLine():
     md = request.args.get('md', 'dark')
     tf = request.args.get('tf', '60')
     TK = request.args.get('tk', '')
-    print(f"sb: {sb}, md: {md}, pd: {tf}, tk: {TK}")
     
     chart_image_path = capture_tradingview_chart(sb,md,tf)
     
@@ -80,7 +77,7 @@ def capture_tradingview_chart(sb,md,tf):
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
         driver.get(url)  # Replace with your Flask app URL
-        time.sleep(10)  # Wait for page to load
+        time.sleep(5)  # Wait for page to load
 
         chart_image_path = 'static/tradingview_chart.png'
         driver.save_screenshot(chart_image_path)

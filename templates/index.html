@@ -26,24 +26,13 @@
     }
     body{
         height: 95vh;
+        margin: 0;
     }
 </style>
 
 <body class="btw ">
 
-    <div class="flex btw">
-        <div>
-            <p>
-                TEST APP V.2
-            </p>
-        </div>
-        <div>
-            <!-- <form action="/send_to_line" method="post">
-                <input type="hidden" name="tradingview_data" id="tradingview_data" value="">
-                <button type="submit">Send to LINE Notify</button>
-            </form> -->
-        </div>
-    </div>
+   
     <div class="flex btw h100per">
         <div id="tradingview_widget" class="w100per h100per"></div>
         <script type="text/javascript">
@@ -55,7 +44,7 @@
                     "timezone": "Asia/Bangkok",
                     "theme": "{{md}}",
                     "style": "1",
-                    "locale": "th_TH",
+                    "locale": "en",
                     "allow_symbol_change": true,
                     "calendar": false,
                     "studies": [
