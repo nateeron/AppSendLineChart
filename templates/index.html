@@ -34,39 +34,39 @@
     <div class="flex btw">
         <div>
             <p>
-                TEST APP V.1
+                TEST APP V.2
             </p>
         </div>
         <div>
-
-
-            <form action="/send_to_line" method="post">
+            <!-- <form action="/send_to_line" method="post">
                 <input type="hidden" name="tradingview_data" id="tradingview_data" value="">
                 <button type="submit">Send to LINE Notify</button>
-            </form>
+            </form> -->
         </div>
     </div>
-    <div class="flex btw">
+    <div class="flex btw h100per">
         <div id="tradingview_widget" class="w100per h100per"></div>
         <script type="text/javascript">
             new TradingView.widget(
                 {
-                    "width": "100%",
-                    "height": "100%",
-                    "symbol": "NASDAQ:AAPL",
-                    "interval": "1D",
-                    "timezone": "Etc/UTC",
-                    "theme": "light",
+                    "autosize": true,
+                    "symbol": "{{sb}}",
+                    "interval": "{{tf}}",
+                    "timezone": "Asia/Bangkok",
+                    "theme": "{{md}}",
                     "style": "1",
-                    "locale": "en",
-                    "toolbar_bg": "#f1f3f6",
-                    "enable_publishing": false,
-                    "hide_legend": true,
+                    "locale": "th_TH",
+                    "allow_symbol_change": true,
+                    "calendar": false,
+                    "studies": [
+                      "STD;DEMA",
+                      "STD;MA%1Cross"],
                     "container_id": "tradingview_widget"
-                }
+                },
             );
         </script>
     </div>
+
 
 
     <script>
