@@ -40,7 +40,7 @@ def sendLine():
         return "Token (tk): อยู่ไหนครับ ?"
     if chart_image_path :
         # Send chart image to LINE Notify
-        message = f"TradingView Chart for"+sb +'TF:'+tf
+        message = f"TradingView Chart for : "+sb +' TF : '+tf
         send_line_notify(message, chart_image_path,TK)
         return 'Success '
     else:
@@ -77,7 +77,7 @@ def capture_tradingview_chart(sb,md,tf):
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
         driver.get(url)  # Replace with your Flask app URL
-        time.sleep(5)  # Wait for page to load
+        time.sleep(4)  # Wait for page to load
 
         chart_image_path = 'static/tradingview_chart.png'
         driver.save_screenshot(chart_image_path)
