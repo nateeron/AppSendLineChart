@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 app = Flask(__name__)
 
 # Replace with your LINE Notify access token
-LINE_NOTIFY_ACCESS_TOKEN = 'GBUXdDrBPOmT8vELYFXZUSmLnDI3gG4mLeJqUXIQh1o'
+LINE_NOTIFY_ACCESS_TOKEN = 'xxxxxxxxxxxxxxxxx'
 # BINANCE:BTCUSDT
 # dark
 # tf": "15","60" "240 "D" ,W
@@ -28,7 +28,7 @@ def index():
     return render_template('index.html', sb=sb, md=md, tf=tf)
 
 
-# http://127.0.0.1:5000/send?sb=BINANCE:BTCUSDT&tf=15&tk=GBUXdDrBPOmT8vELYFXZUSmLnDI3gG4mLeJqUXIQh1o
+# http://127.0.0.1:5000/send?sb=BINANCE:BTCUSDT&tf=15&tk=xxxxxxxxxxxxxxxxx
 @app.route('/send')
 def sendLine():
     sb = request.args.get('sb', 'BINANCE:BTCUSDT')
@@ -75,10 +75,9 @@ def capture_tradingview_chart(sb,md,tf):
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.set_window_size(1200, 800)
-    #http://127.0.0.1:5000/?sb=BINANCE:BTCUSDT&tf=15
     try:
-        #url ='https://flaskapp-sendline-chart-fb4a1cc719f8.herokuapp.com/?sb='+sb+'&md='+md+'&tf='+tf
-        url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
+        url ='https://flaskapp-sendline-chart-fb4a1cc719f8.herokuapp.com/?sb='+sb+'&md='+md+'&tf='+tf
+        #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
         driver.get(url)  # Replace with your Flask app URL
         time.sleep(10)  # Wait for page to load
