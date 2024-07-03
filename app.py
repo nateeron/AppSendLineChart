@@ -5,7 +5,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
-
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.common.exceptions import WebDriverException
 app = Flask(__name__)
 
 @app.route('/')
@@ -39,8 +41,38 @@ def sendLine():
         return 'Failed to capture TradingView chart. Check logs for details.'
     
 
+def capture_tradingview_chart(sb, md, tf):
+    try:
+        url = f'https://appsendlinechart.onrender.com/?sb={sb}&md={md}&tf={tf}'
+        print(f"URL = {url}")
+        
+        # Setup Firefox WebDriver in headless mode
+        firefox_options = FirefoxOptions()
+        firefox_options.headless = True
+        driver = webdriver.Firefox(options=firefox_options)
+        driver.set_window_size(1200, 800)
+        
+        driver.get(url)
+        time.sleep(4)  # Wait for page to load
+        
+        chart_image_path = 'static/tradingview_chart.png'
+        driver.save_screenshot(chart_image_path)
+        
+        return chart_image_path  # Return the path to the saved screenshot
+    
+    except Exception as we:
+        print(f"WebDriverException: {we}")
+        return None  # Handle WebDriver exceptions separately
+    
+    except Exception as e:
+        print(f"Error capturing TradingView chart: {e}")
+        return None
+    
+    finally:
+        if 'driver' in locals():
+            driver.quit()
 
-def capture_tradingview_chart(sb,md,tf):
+def capture_tradingview_chartsss(sb,md,tf):
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
@@ -51,14 +83,14 @@ def capture_tradingview_chart(sb,md,tf):
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
     print(f"URL = {url}")
     try:
-        
-    # Browser Chrome
+        print(Service(ChromeDriverManager().install()))
+        # Browser Chrome
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-        driver.set_window_size(300, 300)
+        driver.set_window_size(1200, 1800)
     
      
         driver.get(url) 
-        time.sleep(4)  # Wait for page to load
+        #time.sleep(1)  # Wait for page to load
 
         chart_image_path = 'static/tradingview_chart.png'
         #driver.save_screenshot(chart_image_path)
@@ -81,6 +113,7 @@ def send_line_notify(message, image_path,TK):
 
 if __name__ == '__main__':
     app.run()
+    #app.run(debug=True)
 
 
 # heroku buildpacks:add --index 1 heroku/google-chrome -a flaskapp-sendline-chart
