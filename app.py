@@ -46,21 +46,22 @@ def capture_tradingview_chart(sb,md,tf):
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"
-
-    url = f'https://appsendlinechart.onrender.com/?sb={sb}&md={md}&tf={tf}'
+    url ='https://appsendlinechart.onrender.com/?sb='+sb+'&md='+md+'&tf='+tf
+        # for TEST
+        #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
     print(f"URL = {url}")
-
     try:
-        driver = webdriver.Chrome(service=Service("/opt/render/project/.render/chrome/opt/google/chrome/chromedriver"), options=options)
-        driver.set_window_size(1200, 800)
+        
+    # Browser Chrome
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        driver.set_window_size(300, 300)
     
      
         driver.get(url) 
         time.sleep(4)  # Wait for page to load
 
         chart_image_path = 'static/tradingview_chart.png'
-        driver.save_screenshot(chart_image_path)
+        #driver.save_screenshot(chart_image_path)
 
         return chart_image_path  # Return the path to the saved screenshot
     except Exception as e:
