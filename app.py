@@ -18,7 +18,7 @@ def index():
     return render_template('index.html', sb=sb, md=md, tf=tf)
 
 
-# http://127.0.0.1:5000/send?sb=BINANCE:BTCUSDT&tf=15&tk=xxxxxxxxxxxxxxxxx
+# http://127.0.0.1:5000/send?sb=BINANCE:BTCUSDT&tf=15&tk=xxxxxxxxxxxxxxxxxxx
 @app.route('/send')
 def sendLine():
     sb = request.args.get('sb', 'BINANCE:BTCUSDT')
@@ -52,7 +52,7 @@ def capture_tradingview_chart(sb,md,tf):
     driver.set_window_size(1200, 800)
     
     try:
-        url ='https://flaskapp-sendline-chart-fb4a1cc719f8.herokuapp.com/?sb='+sb+'&md='+md+'&tf='+tf
+        url ='https://appsendlinechart.onrender.com/?sb='+sb+'&md='+md+'&tf='+tf
         # for TEST
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
