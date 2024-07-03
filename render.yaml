@@ -1,0 +1,10 @@
+env:
+  PYTHON_VERSION: 3.9  # Specify the Python version you are using
+  RENDER: true  # Specify any environment variables needed
+
+build:
+  - ./setup_chrome.sh  # Script to install Chrome (if needed)
+  - pip install -r requirements.txt  # Install Python dependencies
+
+start:
+  - python app.py  # Command to start your Flask application
