@@ -15,8 +15,10 @@ if [[ ! -d $STORAGE_DIR/chrome ]]; then
 else
   echo "...Using Chrome from cache"
 fi
-export PATH="${PATH}:${STORAGE_DIR}/chrome/opt/google/chrome"
+
+#export PATH="${PATH}:${STORAGE_DIR}/chrome/opt/google/chrome"
 export PATH="${PATH}:/opt/render/project/.render/chrome/opt/google/chrome"
+
 gunicorn app:app
 # be sure to add Chromes location to the PATH as part of your Start Command
 # export PATH="${PATH}:/opt/render/project/.render/chrome/opt/google/chrome"
