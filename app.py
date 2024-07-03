@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, jsonify
 import requests
 import time
 from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -24,7 +26,7 @@ def sendLine():
     tf = request.args.get('tf', '60')
     TK = request.args.get('tk', '')
     
-    chart_image_path = capture_tradingview_chart(sb,md,tf,TK)
+    chart_image_path = capture_tradingview_chart(sb,md,tf)
     
     if TK == "":
         return "Token (tk): อยู่ไหนครับ ?"
@@ -38,22 +40,25 @@ def sendLine():
     
 
 
-def capture_tradingview_chart(sb,md,tf,tk):
+def capture_tradingview_chart(sb,md,tf):
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     try:
         url ='https://appsendlinechart.onrender.com/?sb='+sb+'&md='+md+'&tf='+tf
         # for TEST
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
-        firefox_options = FirefoxOptions()
-        firefox_options.headless = True
-        driver = webdriver.Firefox(options=firefox_options)
-        # capabilities = DesiredCapabilities.HTMLUNITWITHJS
-        # driver = webdriver.Remote(command_executor=url, options=capabilities)
-        # capabilities = DesiredCapabilities.HTMLUNITWITHJS.copy()
-        # driver = webdriver.Remote(command_executor=url, desired_capabilities=capabilities)
+    # Browser Chrome
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.set_window_size(1200, 800)
+    
+     
         driver.get(url) 
         time.sleep(4)  # Wait for page to load
+
         chart_image_path = 'static/tradingview_chart.png'
         driver.save_screenshot(chart_image_path)
 
