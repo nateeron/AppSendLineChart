@@ -53,20 +53,21 @@ def capture_tradingview_chart(sb,md,tf):
     try:
         
     # Browser Chrome
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-        driver.set_window_size(300, 300)
-        driver.get(url) 
-        time.sleep(4)  # Wait for page to load
+        # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        # driver.set_window_size(300, 300)
+        # driver.get(url) 
+        # time.sleep(4)  # Wait for page to load
 
         chart_image_path = 'static/tradingview_chart.png'
-        driver.save_screenshot(chart_image_path)
+        # driver.save_screenshot(chart_image_path)
 
         return chart_image_path  # Return the path to the saved screenshot
     except Exception as e:
         print(f"Error capturing TradingView chart: {e}")
         return None
     finally:
-        driver.quit()
+        # driver.quit()
+        print("End Part",chart_image_path)
 
 
 def send_line_notify(message, image_path,TK):
