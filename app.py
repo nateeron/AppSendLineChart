@@ -26,7 +26,7 @@ def sendLine():
     tf = request.args.get('tf', '60')
     TK = request.args.get('tk', '')
     
-    chart_image_path = capture_tradingview_chart(sb,md,tf)
+    chart_image_path = capture_tradingview_chart(sb,md,tf,TK)
     
     if TK == "":
         return "Token (tk): อยู่ไหนครับ ?"
@@ -40,25 +40,22 @@ def sendLine():
     
 
 
-def capture_tradingview_chart(sb,md,tf):
+def capture_tradingview_chart(sb,md,tf,tk):
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-
-    # Browser Chrome
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.set_window_size(1200, 800)
-    
     try:
-        url ='https://appsendlinechart.onrender.com/?sb='+sb+'&md='+md+'&tf='+tf
+        url ='https://appsendlinechart.onrender.com/?sb='+sb+'&md='+md+'&tf='+tf+'&tk='+ tk
         # for TEST
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
+        # Browser Chrome
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        driver.set_window_size(1200, 800)
         driver.get(url) 
         time.sleep(4)  # Wait for page to load
-
         chart_image_path = 'static/tradingview_chart.png'
         driver.save_screenshot(chart_image_path)
 
