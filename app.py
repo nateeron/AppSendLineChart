@@ -47,11 +47,12 @@ def capture_tradingview_chart(sb,md,tf,tk):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     try:
-        url ='https://appsendlinechart.onrender.com/?sb='+sb+'&md='+md+'&tf='+tf+'&tk='+ tk
+        url ='https://appsendlinechart.onrender.com/send?sb='+sb+'&md='+md+'&tf='+tf+'&tk='+ tk
         # for TEST
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
         # Browser Chrome
+        
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.set_window_size(1200, 800)
         driver.get(url) 
