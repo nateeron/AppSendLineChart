@@ -2,10 +2,8 @@ from flask import Flask, render_template, request, jsonify
 import requests
 import time
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 app = Flask(__name__)
 
 @app.route('/')
@@ -41,19 +39,18 @@ def sendLine():
 
 
 def capture_tradingview_chart(sb,md,tf,tk):
-    options = Options()
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
     try:
-        url ='https://appsendlinechart.onrender.com/send?sb='+sb+'&md='+md+'&tf='+tf+'&tk='+ tk
+        url ='https://appsendlinechart.onrender.com/?sb='+sb+'&md='+md+'&tf='+tf
         # for TEST
         #url ='http://127.0.0.1:5000/?sb='+sb+'&md='+md+'&tf='+tf
         print(f"URL = {url}")
-        # Browser Chrome
-        
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        firefox_options = FirefoxOptions()
+        firefox_options.headless = True
+        driver = webdriver.Firefox(options=firefox_options)
+        # capabilities = DesiredCapabilities.HTMLUNITWITHJS
+        # driver = webdriver.Remote(command_executor=url, options=capabilities)
+        # capabilities = DesiredCapabilities.HTMLUNITWITHJS.copy()
+        # driver = webdriver.Remote(command_executor=url, desired_capabilities=capabilities)
         driver.set_window_size(1200, 800)
         driver.get(url) 
         time.sleep(4)  # Wait for page to load
